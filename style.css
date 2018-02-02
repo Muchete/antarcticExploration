@@ -48,9 +48,35 @@ html, body {
     background-color: transparent;
 }
 
-path{
-    fill: red;
+
+
+.path{
+  position: absolute;
+  height: 1000px;
+  width:1680px;
+  pointer-events:none;
+
 }
+
+.shipPath{
+  stroke: #e12b2a;
+  stroke-width: 1;
+  fill: none;
+  position: fixed;
+  transition: stroke 0.1s, stroke-width 0.1s;
+  pointer-events:visibleStroke;
+
+}
+
+
+
+.pathHovering{
+  stroke-width: 3;
+  stroke: blue;
+  z-index: 1;
+}
+
+
 
 .europeMapSVG{
   position: absolute;
@@ -62,6 +88,7 @@ path{
     height: 2000px;
     width: 1680px;
     background-color: transparent;
+    pointer-events:none;
 }
 
 .southDegreeTimeline{
@@ -92,6 +119,7 @@ path{
 
 #timelineSVG{
     height: 10000px;
+    width: 200px;
 }
 
 .europeText{
@@ -138,21 +166,26 @@ path{
     height: 1000px;
     width: 1680px;
     left:120px;
+    pointer-events:none;
 
 }
+
+.scrollmagic-pin-spacer{
+  pointer-events:none;
+}
+
 .pathCollection{
     position: absolute;
     width: 1680px;
+    height: 1000px;
     left:120px;
-
+    background-color: grey;
+    pointer-events:none;
 }
 
-.shipPath{
-  stroke: #e12b2a;
-  stroke-width: 0.5;
-  fill: none;
-  position: fixed;
-}
+
+
+
 
 .ship{
   position: absolute;
@@ -166,8 +199,9 @@ path{
 
 .timeline{
     position: absolute;
-    width: 1440px;
+    width: 200px;
     height: 10000px;
+
 }
 .antarcticaMap{
     position: absolute;

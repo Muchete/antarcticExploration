@@ -76,6 +76,25 @@ d3.csv("data/data.csv", function(error, aData) {
 
   addExpeditions(aData);
 
+  // $( ".shipPath" ).hover(function() {
+  //   $(this).siblings().css({ stroke: "blue" });
+  //   console.log("yaaaaaaa");
+  // });
+
+  $('.shipPath').hover(
+   function(){
+      $(this).addClass("pathHovering");
+      $(this).siblings().addClass("pathHovering");
+
+      // $(this).css({ stroke: "blue" });
+      // $(this).siblings().css({ stroke: "blue" });
+   }, function(){
+      $(this).removeClass("pathHovering");
+      $(this).siblings().removeClass("pathHovering");
+
+   }
+);
+
 
 
   //SCROLLMAGIC FOR EVERYTHING BUT ANTARCTICA SHIPS
@@ -205,14 +224,19 @@ function addExpeditions(csvData){
     //create SHIPS
     d3.select(".shipCollection").append("div").attr("class","ship").attr("id","ship"+i);
 
+    var createPathDiv = d3.select(".pathCollection").append("div").attr("class","path").attr("id","pathGroup_"+i);
+    var createdPathSvgGroup = createPathDiv.append("svg").attr("class","path").attr("id","pathGroupSvg_"+i);
+
+
+
     if (isNaN(cp1x) == false) {
 
       var bezierPath = [{ x: startPos[0]-offset, y: startPos[1]-offset },
                     getMiddlePoints(startPos[0]-offset,startPos[1]-offset,cp1x-offset,cp1y-offset,movement1),
                     { x: cp1x-offset, y: cp1y-offset}];
 
-     var tempDiv = d3.select("#pathCollectionSVG");
-     var tempPath = tempDiv.append("path").attr("d","M"+bezierPath[0].x+","+bezierPath[0].y+" Q"+bezierPath[1].x+","+bezierPath[1].y+" "+bezierPath[2].x+","+bezierPath[2].y+"").attr("class","shipPath").attr("id","path"+i+"01");
+    // var tempDiv = d3.select("#pathCollectionSVG");
+     var tempPath = createdPathSvgGroup.append("path").attr("d","M"+bezierPath[0].x+","+bezierPath[0].y+" Q"+bezierPath[1].x+","+bezierPath[1].y+" "+bezierPath[2].x+","+bezierPath[2].y+"").attr("class","shipPath").attr("id","path"+i+"01");
      var tempjqpath = $("path#"+"path"+i+"01");
      pathPrepare(tempjqpath);
 
@@ -240,7 +264,7 @@ function addExpeditions(csvData){
       var pathDuration = year2-year1;
       var startingYear = 0; //to reset delay for the second and on...
 
-      var tempjqpath = addPaths(bezierPath,i);
+      var tempjqpath = addPaths(bezierPath,i,createdPathSvgGroup);
 
       theTimeline.add([TweenMax.to('#ship'+i, pathDuration, { bezier: {type: 'quadratic', values: bezierPath},  delay: startingYear}),TweenMax.to(tempjqpath, pathDuration, {strokeDashoffset: 0,  delay: startingYear})]);
 
@@ -261,7 +285,7 @@ function addExpeditions(csvData){
 
       var pathDuration = year3-year2;
       var startingYear = 0; //to reset delay for the second and on...
-      var tempjqpath = addPaths(bezierPath,i);
+      var tempjqpath = addPaths(bezierPath,i,createdPathSvgGroup);
 
       theTimeline.add([TweenMax.to('#ship'+i, pathDuration, { bezier: {type: 'quadratic', values: bezierPath}, ease: Power3.easeInOut, delay: startingYear}),TweenMax.to(tempjqpath, pathDuration, {strokeDashoffset: 0, ease:Power3.easeInOut, delay: startingYear}, 0)]);    }
 
@@ -280,7 +304,7 @@ function addExpeditions(csvData){
 
       var pathDuration = year4-year3;
       var startingYear = 0; //to reset delay for the second and on...
-      var tempjqpath = addPaths(bezierPath,i);
+      var tempjqpath = addPaths(bezierPath,i,createdPathSvgGroup);
 
       theTimeline.add([TweenMax.to('#ship'+i, pathDuration, { bezier: {type: 'quadratic', values: bezierPath}, ease: Power3.easeInOut, delay: startingYear}),TweenMax.to(tempjqpath, pathDuration, {strokeDashoffset: 0, ease:Power3.easeInOut, delay: startingYear}, 0)]);    }
     else {
@@ -298,7 +322,7 @@ function addExpeditions(csvData){
 
       var pathDuration = year5-year4;
       var startingYear = 0; //to reset delay for the second and on...
-      var tempjqpath = addPaths(bezierPath,i);
+      var tempjqpath = addPaths(bezierPath,i,createdPathSvgGroup);
 
       theTimeline.add([TweenMax.to('#ship'+i, pathDuration, { bezier: {type: 'quadratic', values: bezierPath}, ease: Power3.easeInOut, delay: startingYear}),TweenMax.to(tempjqpath, pathDuration, {strokeDashoffset: 0, ease:Power3.easeInOut, delay: startingYear}, 0)]);    }
     else {
@@ -316,7 +340,7 @@ function addExpeditions(csvData){
 
       var pathDuration = year6-year5;
       var startingYear = 0; //to reset delay for the second and on...
-      var tempjqpath = addPaths(bezierPath,i);
+      var tempjqpath = addPaths(bezierPath,i,createdPathSvgGroup);
 
       theTimeline.add([TweenMax.to('#ship'+i, pathDuration, { bezier: {type: 'quadratic', values: bezierPath}, ease: Power3.easeInOut, delay: startingYear}),TweenMax.to(tempjqpath, pathDuration, {strokeDashoffset: 0, ease:Power3.easeInOut, delay: startingYear}, 0)]);    }
     else {
@@ -334,7 +358,7 @@ function addExpeditions(csvData){
 
       var pathDuration = year7-year6;
       var startingYear = 0; //to reset delay for the second and on...
-      var tempjqpath = addPaths(bezierPath,i);
+      var tempjqpath = addPaths(bezierPath,i,createdPathSvgGroup);
 
       theTimeline.add([TweenMax.to('#ship'+i, pathDuration, { bezier: {type: 'quadratic', values: bezierPath}, ease: Power3.easeInOut, delay: startingYear}),TweenMax.to(tempjqpath, pathDuration, {strokeDashoffset: 0, ease:Power3.easeInOut, delay: startingYear}, 0)]);    }
     else {
@@ -352,7 +376,7 @@ function addExpeditions(csvData){
 
       var pathDuration = year8-year7;
       var startingYear = 0; //to reset delay for the second and on...
-      var tempjqpath = addPaths(bezierPath,i);
+      var tempjqpath = addPaths(bezierPath,i,createdPathSvgGroup);
 
       theTimeline.add([TweenMax.to('#ship'+i, pathDuration, { bezier: {type: 'quadratic', values: bezierPath}, ease: Power3.easeInOut, delay: startingYear}),TweenMax.to(tempjqpath, pathDuration, {strokeDashoffset: 0, ease:Power3.easeInOut, delay: startingYear}, 0)]);    }
     else {
@@ -370,7 +394,7 @@ function addExpeditions(csvData){
 
       var pathDuration = year9-year8;
       var startingYear = 0; //to reset delay for the second and on...
-      var tempjqpath = addPaths(bezierPath,i);
+      var tempjqpath = addPaths(bezierPath,i,createdPathSvgGroup);
 
       theTimeline.add([TweenMax.to('#ship'+i, pathDuration, { bezier: {type: 'quadratic', values: bezierPath}, ease: Power3.easeInOut, delay: startingYear}),TweenMax.to(tempjqpath, pathDuration, {strokeDashoffset: 0, ease:Power3.easeInOut, delay: startingYear}, 0)]);    }
     else {
@@ -388,7 +412,7 @@ function addExpeditions(csvData){
 
       var pathDuration = year10-year9;
       var startingYear = 0; //to reset delay for the second and on...
-      var tempjqpath = addPaths(bezierPath,i);
+      var tempjqpath = addPaths(bezierPath,i,createdPathSvgGroup);
 
       theTimeline.add([TweenMax.to('#ship'+i, pathDuration, { bezier: {type: 'quadratic', values: bezierPath}, ease: Power3.easeInOut, delay: startingYear}),TweenMax.to(tempjqpath, pathDuration, {strokeDashoffset: 0, ease:Power3.easeInOut, delay: startingYear}, 0)]);    }
     else {
@@ -406,7 +430,7 @@ function addExpeditions(csvData){
 
       var pathDuration = year11-year10;
       var startingYear = 0; //to reset delay for the second and on...
-      var tempjqpath = addPaths(bezierPath,i);
+      var tempjqpath = addPaths(bezierPath,i,createdPathSvgGroup);
 
       theTimeline.add([TweenMax.to('#ship'+i, pathDuration, { bezier: {type: 'quadratic', values: bezierPath}, ease: Power3.easeInOut, delay: startingYear}),TweenMax.to(tempjqpath, pathDuration, {strokeDashoffset: 0, ease:Power3.easeInOut, delay: startingYear}, 0)]);    }
     else {
@@ -424,7 +448,7 @@ function addExpeditions(csvData){
 
       var pathDuration = year12-year11;
       var startingYear = 0; //to reset delay for the second and on...
-      var tempjqpath = addPaths(bezierPath,i);
+      var tempjqpath = addPaths(bezierPath,i,createdPathSvgGroup);
 
       theTimeline.add([TweenMax.to('#ship'+i, pathDuration, { bezier: {type: 'quadratic', values: bezierPath}, ease: Power3.easeInOut, delay: startingYear}),TweenMax.to(tempjqpath, pathDuration, {strokeDashoffset: 0, ease:Power3.easeInOut, delay: startingYear}, 0)]);    }
     else {
@@ -443,7 +467,7 @@ function addExpeditions(csvData){
 
       var pathDuration = year13-year12;
       var startingYear = 0; //to reset delay for the second and on...
-      var tempjqpath = addPaths(bezierPath,i);
+      var tempjqpath = addPaths(bezierPath,i,createdPathSvgGroup);
 
       theTimeline.add([TweenMax.to('#ship'+i, pathDuration, { bezier: {type: 'quadratic', values: bezierPath}, ease: Power3.easeInOut, delay: startingYear}),TweenMax.to(tempjqpath, pathDuration, {strokeDashoffset: 0, ease:Power3.easeInOut, delay: startingYear}, 0)]);
       //ONLY FOR THE LAST
@@ -537,9 +561,8 @@ function getMiddlePointsWalking(x1,y1,x2,y2){
   return middlePoints;
 }
 
-function addPaths(bezierPath,i){
-  var tempDiv = d3.select("#pathCollectionSVG");
-  var tempPath = tempDiv.append("path").attr("d","M"+bezierPath[0].x+","+bezierPath[0].y+" Q"+bezierPath[1].x+","+bezierPath[1].y+" "+bezierPath[2].x+","+bezierPath[2].y+"").attr("class","shipPath").attr("id","path"+i+"_"+pathId);
+function addPaths(bezierPath,i,pathGroupSvg){
+  pathGroupSvg.append("path").attr("d","M"+bezierPath[0].x+","+bezierPath[0].y+" Q"+bezierPath[1].x+","+bezierPath[1].y+" "+bezierPath[2].x+","+bezierPath[2].y+"").attr("class","shipPath").attr("id","path"+i+"_"+pathId);
   var tempjqpath = $("path#"+"path"+i+"_"+pathId);
   pathPrepare(tempjqpath);
   pathId++;
