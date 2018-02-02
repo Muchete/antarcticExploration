@@ -1,0 +1,177 @@
+html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    h2{
+      font-family:'AcuminPro-BlackItalic';
+      font-size: 100px;
+      letter-spacing: 15px;
+      text-align: center;
+    }
+
+    p{
+      margin-top: -70px;
+      font-family:'AcuminPro-LightItalic';
+      font-size: 30px;
+      letter-spacing: 5px;
+      text-align: center;
+    }
+
+
+
+    .graphLine {
+      stroke:black;
+      stroke-width: 0.7;
+    }
+
+
+
+.intro{
+    height: 1200px;
+    width: 100%;
+
+}
+
+.introText{
+    display: block;
+    margin: auto;
+    padding-top: 100px;
+    height: 500px;
+    width: 850px;
+}
+
+.europeMap{
+    height: 2000px;
+    width: 1680px;
+    background-color: transparent;
+}
+
+path{
+    fill: red;
+}
+
+.europeMapSVG{
+  position: absolute;
+  height: 2000px;
+  width: 1680px;
+}
+
+.atlanticMap{
+    height: 2000px;
+    width: 1680px;
+    background-color: transparent;
+}
+
+.southDegreeTimeline{
+  position: absolute;
+  width: 1680px;
+  height: 100px;
+  margin-top: -60px;
+  background-color: white;
+}
+.southDegree{
+
+    height: 4000px;
+    width: 1680px;
+    background-color: transparent;
+}
+
+.bridge{
+    height: 1000px;
+    width: 1680px;
+    background-color: white;
+}
+
+.antarctica{
+    height: 10000px;
+    width: 100%;
+
+}
+
+#timelineSVG{
+    height: 10000px;
+}
+
+.europeText{
+    display: block;
+    margin: auto;
+    padding-top: 70px;
+    height: 500px;
+    width: 850px;
+}
+
+.atlanticText{
+    display: block;
+    margin: auto;
+    padding-top: 70px;
+    height: 500px;
+    width: 850px;
+}
+
+.bridgeText{
+    display: block;
+    margin: auto;
+    padding-top: 70px;
+    height: 500px;
+    width: 850px;
+}
+
+.southLine{
+  stroke: transparent;
+  stroke-width: 0.5;
+}
+
+.graphLine {
+  stroke: black;
+  stroke-width: 0.5;
+}
+
+.tick{
+  stroke: transparent;
+}
+
+/*antarctica styles*/
+.shipCollection{
+    position: absolute;
+    height: 1000px;
+    width: 1680px;
+    left:120px;
+
+}
+.pathCollection{
+    position: absolute;
+    width: 1680px;
+    left:120px;
+
+}
+
+.shipPath{
+  stroke: #e12b2a;
+  stroke-width: 0.5;
+  fill: none;
+  position: fixed;
+}
+
+.ship{
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  background-color: black;
+  border-radius: 10px;
+  margin-left: -2.5px;
+  margin-top: -2.5px;
+}
+
+.timeline{
+    position: absolute;
+    width: 1440px;
+    height: 10000px;
+}
+.antarcticaMap{
+    position: absolute;
+    width: 1440px;
+    height: 10865px;
+
+}
