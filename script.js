@@ -2,7 +2,7 @@
 var controller = new ScrollMagic.Controller();
 
 var pathId = 0;
-var offset = 0;
+var offset = -120;
 
 var tooltipDataMap = {};
 
@@ -14,20 +14,8 @@ var startPosAustralia = [1500,1000];
 var startPosSplit = [10,10];
 
 
-d3.csv("data/dataTooltipMap.csv", function(error, dataTooltipMap) {
 
-  if (error) throw error;
 
-  dataTooltipMap.forEach(function (d) {
-    return d;
-  });
-
-  console.log(dataTooltipMap);
-  tooltipDataMap = dataTooltipMap;
-
-});
-
-console.log(tooltipDataMap);
 
 
 d3.csv("data/data.csv", function(error, aData) {
@@ -92,6 +80,20 @@ d3.csv("data/data.csv", function(error, aData) {
 
   });
 
+  d3.csv("data/dataTooltipMap.csv", function(error, dataTooltipMap) {
+
+    if (error) throw error;
+
+    dataTooltipMap.forEach(function (d) {
+      return d;
+    });
+
+
+    tooltipDataMap = dataTooltipMap;
+
+
+
+
   addExpeditions(aData);
 
   // $( ".shipPath" ).hover(function() {
@@ -103,12 +105,18 @@ d3.csv("data/data.csv", function(error, aData) {
    function(){
       $(this).addClass("pathHovering");
       $(this).siblings().addClass("pathHovering");
+      $(this).parent().parent().siblings().addClass("soften");
+      //get right line from second data file (tootltip)
+      var hoverId = String(($(this).parent().parent().attr('id')));
+      var hoverNr = hoverId.replace("pathGroup_","");
+      console.log(dataTooltipMap[hoverNr].schiff);
 
-      // $(this).css({ stroke: "blue" });
-      // $(this).siblings().css({ stroke: "blue" });
+
    }, function(){
       $(this).removeClass("pathHovering");
       $(this).siblings().removeClass("pathHovering");
+      $(this).parent().parent().siblings().removeClass("soften");
+
 
    }
 );
@@ -148,6 +156,7 @@ d3.csv("data/data.csv", function(error, aData) {
                                                                   .setPin(".southDegreeTimeline")
                                                                   .addTo(controller)
                                                                   .triggerHook(0.06);
+});
 });
 
 
