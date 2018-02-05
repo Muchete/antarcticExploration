@@ -4,12 +4,30 @@ var controller = new ScrollMagic.Controller();
 var pathId = 0;
 var offset = 0;
 
+var tooltipDataMap = {};
+
 
 //start positions might be temorary
 var startPosEurope = [-100,-100];
 var startPosAfrica = [1200,-100];
 var startPosAustralia = [1500,1000];
 var startPosSplit = [10,10];
+
+
+d3.csv("data/dataTooltipMap.csv", function(error, dataTooltipMap) {
+
+  if (error) throw error;
+
+  dataTooltipMap.forEach(function (d) {
+    return d;
+  });
+
+  console.log(dataTooltipMap);
+  tooltipDataMap = dataTooltipMap;
+
+});
+
+console.log(tooltipDataMap);
 
 
 d3.csv("data/data.csv", function(error, aData) {
@@ -254,7 +272,7 @@ function addExpeditions(csvData){
 
 
     if (isNaN(cp2x) == false) {
-      console.log("error here?")
+      //console.log("error here?")
       var bezierPath = [{ x: cp1x-offset, y: cp1y-offset },
                     getMiddlePoints(cp1x-offset,cp1y-offset,cp2x-offset,cp2y-offset,movement2),
                     { x: cp2x-offset, y: cp2y-offset}];
@@ -507,7 +525,7 @@ function getMiddlePoints(x1,y1,x2,y2,movement){
     var a = x1 - x2;
     var b = y1 - y2;
     var distanceToMiddle = (Math.sqrt( a*a + b*b ))/1.2;
-    console.log("shiping");
+    //console.log("shiping");
 
     //get thirdPoint
     var nx = x2 - x1;
@@ -547,7 +565,7 @@ function getMiddlePoints(x1,y1,x2,y2,movement){
 
   }else {
 
-    console.log("footing");
+    //console.log("footing");
     var middlePoints = { x: ((x1+x2)/2), y: ((y1+y2)/2) };
 
 
@@ -630,7 +648,7 @@ var yAxis = d3.axisRight(y)
 									return d;
 								});
 
-								console.log(data);
+								//console.log(data);
 
 								// x.domain(data.map(function(d) { return d.date; }));
 								// y.domain([0, d3.max(data, function(d) { return d.south; })]);
