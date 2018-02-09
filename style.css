@@ -1,3 +1,14 @@
+@font-face {
+    font-family: AcuminPro-LightItalic;
+    src: url("dependecies/acuminproLightItalic.otf") format("opentype");
+}
+@font-face {
+  font-family: AcuminPro-BlackItalic;
+  src: url("dependecies/acuminproBlackItalic.otf") format("opentype");
+}
+
+
+
 html, body {
   height: 100%;
   margin: 0;
@@ -26,7 +37,7 @@ p {
 }
 
 .intro {
-  height: 1200px;
+  height: 1000px;
   width: 100%;
 }
 
@@ -39,16 +50,35 @@ p {
 }
 
 .europeMap {
-  height: 2000px;
+  display: block;
+  background-color: red;
   width: 100%;
-  stroke: blue ;
-  fill: none;
+  height: 200px;
+  overflow: hidden;
 }
 
 
 .europeMapSVG {
   position: absolute;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  background-color: #A1DAFF;
+  opacity: 0.5;
+
 }
+
+.europeText {
+  position: absolute;
+  display: block;
+  padding-top: 70px;
+  height: 500px;
+  width: 850px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+}
+
 
 .path {
   position: absolute;
@@ -115,13 +145,6 @@ p {
   width: 200px;
 }
 
-.europeText {
-  display: block;
-  margin: auto;
-  padding-top: 70px;
-  height: 500px;
-  width: 850px;
-}
 
 .atlanticText {
   display: block;

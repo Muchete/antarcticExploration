@@ -15,6 +15,15 @@ var startPosSplit = [10, 10];
 
 
 
+$( document ).ready(function() {
+  $('.europeMap').css('height', $("#europeSvgCont").outerHeight()+"px");
+  console.log("oy ready");
+});
+
+$( window ).resize(function() {
+  $('.europeMap').css('height', $("#europeSvgCont").outerHeight()+"px");
+});
+
 
 
 
@@ -125,27 +134,26 @@ d3.csv("data/data.csv", function(error, aData) {
 
 
     //SCROLLMAGIC FOR EVERYTHING BUT ANTARCTICA SHIPS
-    new ScrollMagic.Scene({
-        triggerElement: ".europeMap",
-        duration: 1200
-      })
-      .setPin(".europeText", {
-        pushFollowers: false
-      })
-      //.addIndicators({name: "1 (duration: 1200)"}) // add indicators (requires plugin)
-      .addTo(controller)
-      .triggerHook(0.2);
+    // new ScrollMagic.Scene({
+    //     triggerElement: ".europeMap",
+    //     duration: 0
+    //   })
+    //   .setPin(".europeText", {
+    //     pushFollowers: false
+    //   })
+    //   .addTo(controller)
+    //   .triggerHook(0.2);
 
 
-    new ScrollMagic.Scene({
-        triggerElement: ".atlanticMap",
-        duration: 1000
-      })
-      .setPin(".atlanticText", {
-        pushFollowers: false
-      })
-      .addTo(controller)
-      .triggerHook(0.2);
+    // new ScrollMagic.Scene({
+    //     triggerElement: ".atlanticMap",
+    //     duration: 1000
+    //   })
+    //   .setPin(".atlanticText", {
+    //     pushFollowers: false
+    //   })
+    //   .addTo(controller)
+    //   .triggerHook(0.2);
 
 
     new ScrollMagic.Scene({

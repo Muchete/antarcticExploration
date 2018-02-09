@@ -19,6 +19,7 @@
       }
       .europeCurves{
         stroke: red !important;
+        stroke-width: 0.5 !important;
       }
       ]]>
   </style>
