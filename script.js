@@ -16,12 +16,19 @@ var startPosSplit = [10, 10];
 
 $( window ).on( "load", function() {
   $('.europeMap').css('height', $("#europeSvgCont").outerHeight()+"px");
+  $('.southMap').css('height', $("#southSvgCont").outerHeight()+"px");
+  $('.southDegreeShips').css('height', $("#southSvgCont").outerHeight()+"px");
+
 
 })
 
 
 $( window ).resize(function() {
   $('.europeMap').css('height', $("#europeSvgCont").outerHeight()+"px");
+  $('.southMap').css('height', $("#southSvgCont").outerHeight()+"px");
+  $('.southDegreeShips').css('height', $("#southSvgCont").outerHeight()+"px");
+
+
 });
 
 
@@ -186,13 +193,13 @@ d3.csv("data/data.csv", function(error, aData) {
       .addTo(controller)
       .triggerHook(0);
 
-    new ScrollMagic.Scene({
-        triggerElement: '.southDegreeDraw',
-        duration: 2300
-      })
-      .setPin(".southDegreeTimeline")
-      .addTo(controller)
-      .triggerHook(0.06);
+    // new ScrollMagic.Scene({
+    //     triggerElement: '.southDegreeDraw',
+    //     duration: 2300
+    //   })
+    //   .setPin(".southDegreeTimeline")
+    //   .addTo(controller)
+    //   .triggerHook(0.06);
   });
 });
 
@@ -967,6 +974,14 @@ d3.csv("data/data_southDegree.csv", function(error, data) {
   });
 
   console.log(data);
+
+  //html version first tests://////////////////////////////////
+  console.log(data[0].date);
+
+  d3.select(".southDegreeShips").append("div").attr("class", "sdShip").attr("id", "testship").style("margin-left", "100px");
+
+
+
 
   // x.domain(data.map(function(d) { return d.date; }));
   // y.domain([0, d3.max(data, function(d) { return d.south; })]);
