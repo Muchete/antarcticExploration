@@ -14,11 +14,11 @@ var startPosAustralia = [1500, 1000];
 var startPosSplit = [10, 10];
 
 
-
-$( document ).ready(function() {
+$( window ).on( "load", function() {
   $('.europeMap').css('height', $("#europeSvgCont").outerHeight()+"px");
-  console.log("oy ready");
-});
+
+})
+
 
 $( window ).resize(function() {
   $('.europeMap').css('height', $("#europeSvgCont").outerHeight()+"px");
@@ -906,6 +906,9 @@ function pathPrepare($el) {
 
 }
 
+//SOUTH DEGREE
+
+
 var svg = d3.select(".southDegreeDraw")
 margin = {
     top: 0,
@@ -963,7 +966,7 @@ d3.csv("data/data_southDegree.csv", function(error, data) {
     return d;
   });
 
-  //console.log(data);
+  console.log(data);
 
   // x.domain(data.map(function(d) { return d.date; }));
   // y.domain([0, d3.max(data, function(d) { return d.south; })]);

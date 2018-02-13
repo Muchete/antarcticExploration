@@ -51,10 +51,8 @@ p {
 
 .europeMap {
   display: block;
-  background-color: red;
+  background-color: lightgrey;
   width: 100%;
-  height: 200px;
-  overflow: hidden;
 }
 
 
@@ -63,8 +61,8 @@ p {
   left: 0;
   right: 0;
   margin: 0 auto;
-  background-color: #A1DAFF;
   opacity: 0.5;
+  overflow: hidden
 
 }
 
@@ -72,6 +70,18 @@ p {
   position: absolute;
   display: block;
   padding-top: 70px;
+  height: 500px;
+  width: 850px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+}
+
+
+.atlanticText {
+  position: absolute;
+  display: block;
+  padding-top: 570px;
   height: 500px;
   width: 850px;
   left: 0;
@@ -108,13 +118,6 @@ p {
   opacity: 0.2;
 }
 
-.atlanticMap {
-  height: 2000px;
-  width: 1680px;
-  background-color: transparent;
-  pointer-events: none;
-}
-
 .southDegreeTimeline {
   position: absolute;
   width: 1680px;
@@ -145,14 +148,6 @@ p {
   width: 200px;
 }
 
-
-.atlanticText {
-  display: block;
-  margin: auto;
-  padding-top: 70px;
-  height: 500px;
-  width: 850px;
-}
 
 .bridgeText {
   display: block;
