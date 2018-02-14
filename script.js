@@ -14,19 +14,22 @@ var startPosAustralia = [1500, 1000];
 var startPosSplit = [10, 10];
 
 
-$( window ).on( "load", function() {
-  $('.europeMap').css('height', $("#europeSvgCont").outerHeight()+"px");
-  $('.southMap').css('height', $("#southSvgCont").outerHeight()+"px");
-  $('.southDegreeShips').css('height', $("#southSvgCont").outerHeight()+"px");
+$(window).on("load", function() {
+  $('.europeMap').css('height', $("#europeSvgCont").outerHeight() + "px");
+  $('.southMap').css('height', $("#southSvgCont").outerHeight() + "px");
+  $('.southDegreeShips').css('height', $("#southSvgCont").outerHeight() + "px");
+  loadSouthDegrees();
 
 
 })
 
 
-$( window ).resize(function() {
-  $('.europeMap').css('height', $("#europeSvgCont").outerHeight()+"px");
-  $('.southMap').css('height', $("#southSvgCont").outerHeight()+"px");
-  $('.southDegreeShips').css('height', $("#southSvgCont").outerHeight()+"px");
+$(window).resize(function() {
+  $('.europeMap').css('height', $("#europeSvgCont").outerHeight() + "px");
+  $('.southMap').css('height', $("#southSvgCont").outerHeight() + "px");
+  $('.southDegreeShips').css('height', $("#southSvgCont").outerHeight() + "px");
+  loadSouthDegrees();
+
 
 
 });
@@ -913,99 +916,227 @@ function pathPrepare($el) {
 
 }
 
+function responsiveY(degreeSouth) {
+  var cordFullHeight = 80;
+  var pixFullHeight = $("#southSvgCont").outerHeight();
+  var calculatedHeight = Math.round(pixFullHeight / cordFullHeight * degreeSouth);
+  //console.log("heo" + calculatedHeight);
+  return calculatedHeight;
+
+}
+
+function responsiveX(yearSouth) {
+  var startYear = 1400;
+  var endYear = 1900;
+  var yearFullWidth = endYear - startYear;
+  var yearSouthInTimeline = yearSouth - startYear;
+  var pixFullWidth = $("#southDegreeShips").innerWidth();
+  var calculatedWidth = Math.round(pixFullWidth / yearFullWidth * yearSouthInTimeline);
+  //console.log("heooo" + pixFullWidth);
+  return calculatedWidth;
+
+  //breite/yearFullWidth*year
+}
+
+function clearSouthDegree() {
+  $(".southDegreeShips").empty();
+}
+
+function addSouthShip(data) {
+  ix = 0;
+  while (ix < data.length) {
+    console.log(data[ix].date);
+
+    d3.select(".southDegreeShips").append("div").attr("class", "sdGroup").attr("id", "southGroup" + String(ix))
+
+
+    d3.select("#southGroup" + String(ix)).append("div").attr("class", "sdShip").attr("id", "southShip" + String(ix))
+      .style("top", "0 px")
+      .style("left", responsiveX(data[ix].date) + "px");
+
+    new ScrollMagic.Scene({
+        triggerElement: "#southDegreeShips",
+        duration: responsiveY(data[ix].south)
+      })
+      // animate color and top border in relation to scroll position
+      .setTween("#southShip" + String(ix), {
+        top: responsiveY(data[ix].south) + "px",
+        ease: CustomEase.create("custom", "M0,0,C0.306,0.176,0.472,0.455,0.496,0.496,0.574,0.63,0.754,0.858,1,1")
+      }) // the tween durtion can be omitted and defaults to 1
+      .addIndicators({
+        name: "2 (duration: 300)"
+      }) // add indicators (requires plugin)
+      .addTo(controller);
+
+
+    d3.select("#southGroup" + String(ix)).append("div").attr("class", "sdStroke").attr("id", "southStroke" + String(ix))
+      .style("top", "0 px")
+      .style("left", responsiveX(data[ix].date) + "px");
+
+    new ScrollMagic.Scene({
+        triggerElement: "#southDegreeShips",
+        duration: responsiveY(data[ix].south)
+      })
+      // animate color and top border in relation to scroll position
+      .setTween("#southStroke" + String(ix), {
+        height: responsiveY(data[ix].south) + "px",
+        ease: CustomEase.create("custom", "M0,0,C0.306,0.176,0.472,0.455,0.496,0.496,0.574,0.63,0.754,0.858,1,1")
+      }) // the tween durtion can be omitted and defaults to 1
+      .addIndicators({
+        name: "2 (duration: 300)"
+      }) // add indicators (requires plugin)
+      .addTo(controller);
+
+    // new ScrollMagic.Scene({
+    //     triggerElement: "#southDegreeShips",
+    //     duration: responsiveY(data[ix].south)
+    //   })
+    //   .setPin("#southShip" + String(ix))
+    //   .addIndicators({
+    //     name: "1 (duration:"+data[ix].south
+    //   }) // add indicators (requires plugin)
+    //   .addTo(controller);
+    //
+    //
+    // new ScrollMagic.Scene({
+    //     triggerElement: "#southDegreeShips",
+    //     triggerHook:    0.4,
+    //     duration: 0
+    //   })
+    //   .setClassToggle("#southShip" + String(ix), "on") // add class toggle
+    //   .addIndicators({
+    //     name: "1 (duration:"+data[ix].south
+    //   }) // add indicators (requires plugin)
+    //   .addTo(controller);
+
+    ix++;
+  }
+
+
+
+}
+
+
 //SOUTH DEGREE
 
+function loadSouthDegrees() {
+  // var svg = d3.select(".southDegreeDraw")
+  // margin = {
+  //     top: 0,
+  //     right: 315,
+  //     bottom: 0,
+  //     left: 315
+  //   },
+  //   width = +svg.attr("width") - margin.left - margin.right,
+  //   height = +svg.attr("height") - margin.top - margin.bottom,
+  //   g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+  //
+  // var formatNumber = d3.format("1");
+  //
+  // var x = d3.scaleLinear()
+  //   .domain([1400, 1900])
+  //   .range([0, width]);
+  //
+  // var y = d3.scaleLinear()
+  //   .domain([0, 80])
+  //   .range([0, height]);
+  //
+  // var xAxis = d3.axisTop(x)
+  //   .ticks(4);
+  //
+  // var yAxis = d3.axisRight(y)
+  //   .ticks(7)
+  //   .tickSize(width)
+  //   .tickFormat(function(d) {});
+  //
+  // g.append("g")
+  //   .attr("transform", "translate(0,0)")
+  //   .call(customXAxis);
+  //
+  // g.append("g")
+  //   .call(customYAxis);
+  //
+  // function customXAxis(g) {
+  //   g.call(xAxis);
+  // }
+  //
+  // function customYAxis(g) {
+  //   g.call(yAxis);
+  //   g.select(".domain").remove();
+  //   g.selectAll(".tick:not(:first-of-type) line").attr("class", "southLine");
+  //   g.selectAll(".tick text").attr("x", -25).attr("dy", 3);
+  // }
 
-var svg = d3.select(".southDegreeDraw")
-margin = {
-    top: 0,
-    right: 315,
-    bottom: 0,
-    left: 315
-  },
-  width = +svg.attr("width") - margin.left - margin.right,
-  height = +svg.attr("height") - margin.top - margin.bottom,
-  g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+  d3.csv("data/data_southDegree.csv", function(error, data) {
 
-var formatNumber = d3.format("1");
+    if (error) throw error;
 
-var x = d3.scaleLinear()
-  .domain([1400, 1900])
-  .range([0, width]);
+    data.forEach(function(d) {
+      d.date = +d.date;
+      d.south = +d.south;
+      return d;
+    });
 
-var y = d3.scaleLinear()
-  .domain([0, 80])
-  .range([0, height]);
+    console.log(data.length);
 
-var xAxis = d3.axisTop(x)
-  .ticks(4);
+    //html version first tests://////////////////////////////////
+    clearSouthDegree();
+    console.log(data[0].date);
+    addSouthShip(data);
 
-var yAxis = d3.axisRight(y)
-  .ticks(7)
-  .tickSize(width)
-  .tickFormat(function(d) {});
 
-g.append("g")
-  .attr("transform", "translate(0,0)")
-  .call(customXAxis);
+    $('.sdGroup').hover(
+      function() {
+        $(this).find(".sdStroke").addClass("sdStrokeHovering");
+        $(this).find(".sdShip").addClass("sdStrokeHovering");
 
-g.append("g")
-  .call(customYAxis);
+        //$(this).siblings().addClass("pathHovering");
+        //$(this).parent().parent().siblings().addClass("soften");
+        //get right line from second data file (tootltip)
+        var hoverId = String(($(this).parent().parent().attr('id')));
+        var hoverNr = hoverId.replace("sdGroup", "");
+        console.log(hoverNr);
 
-function customXAxis(g) {
-  g.call(xAxis);
-}
 
-function customYAxis(g) {
-  g.call(yAxis);
-  g.select(".domain").remove();
-  g.selectAll(".tick:not(:first-of-type) line").attr("class", "southLine");
-  g.selectAll(".tick text").attr("x", -25).attr("dy", 3);
-}
+      },
+      function() {
+        $(this).find(".sdStroke").removeClass("sdStrokeHovering");
+        $(this).find(".sdShip").removeClass("sdStrokeHovering");
 
-d3.csv("data/data_southDegree.csv", function(error, data) {
+        $(this).siblings().removeClass("pathHovering");
+        $(this).parent().parent().siblings().removeClass("soften");
 
-  if (error) throw error;
 
-  data.forEach(function(d) {
-    d.date = +d.date;
-    d.south = +d.south;
-    return d;
+      }
+    );
+
+
+
+    //
+    // // x.domain(data.map(function(d) { return d.date; }));
+    // // y.domain([0, d3.max(data, function(d) { return d.south; })]);
+    //
+    // g.selectAll(".bar")
+    //   .data(data)
+    //   .enter().append("line")
+    //   .attr("class", "graphLine")
+    //   .attr("x1", function(d) {
+    //     return x(d.date);
+    //   })
+    //   .attr("y1", function(d) {
+    //     return y(0);
+    //   })
+    //   .attr("x2", function(d) {
+    //     return x(d.date);
+    //   })
+    //   .attr("y2", function(d) {
+    //     return y(d.south);
+    //   })
+    //   .attr("marker-end", "url(#circle)");
+
+
+
+
+
   });
-
-  console.log(data);
-
-  //html version first tests://////////////////////////////////
-  console.log(data[0].date);
-
-  d3.select(".southDegreeShips").append("div").attr("class", "sdShip").attr("id", "testship").style("margin-left", "100px");
-
-
-
-
-  // x.domain(data.map(function(d) { return d.date; }));
-  // y.domain([0, d3.max(data, function(d) { return d.south; })]);
-
-  g.selectAll(".bar")
-    .data(data)
-    .enter().append("line")
-    .attr("class", "graphLine")
-    .attr("x1", function(d) {
-      return x(d.date);
-    })
-    .attr("y1", function(d) {
-      return y(0);
-    })
-    .attr("x2", function(d) {
-      return x(d.date);
-    })
-    .attr("y2", function(d) {
-      return y(d.south);
-    })
-    .attr("marker-end", "url(#circle)");
-
-
-
-
-
-});
+};
