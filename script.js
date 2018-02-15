@@ -292,6 +292,11 @@ function addExpeditions(csvData) {
 
     var theTimeline = new TimelineMax();
     var endReached = false;
+
+    //scrollmagic
+
+    
+
     //create SHIPS
     d3.select(".shipCollection").append("div").attr("class", "ship").attr("id", "ship" + i);
 
