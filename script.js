@@ -1,11 +1,11 @@
 //GLOBAL STUFF
 var controller = new ScrollMagic.Controller();
+var europeTextScene;
 
 var pathId = 0;
 var offset = -120;
 
 var tooltipDataMap = {};
-
 
 //start positions might be temorary
 var startPosEurope = [-100, -100];
@@ -15,27 +15,51 @@ var startPosSplit = [10, 10];
 
 
 $(window).on("load", function() {
-  $('.europeMap').css('height', $("#europeSvgCont").outerHeight() + "px");
-  $('.southMap').css('height', $("#southSvgCont").outerHeight() + "px");
-  $('.southDegreeShips').css('height', $("#southSvgCont").outerHeight() + "px");
-  loadSouthDegrees();
-
+  reloadResponsiveStuff();
 
 })
 
 
 $(window).resize(function() {
-  $('.europeMap').css('height', $("#europeSvgCont").outerHeight() + "px");
-  $('.southMap').css('height', $("#southSvgCont").outerHeight() + "px");
-  $('.southDegreeShips').css('height', $("#southSvgCont").outerHeight() + "px");
-  loadSouthDegrees();
-
-
+  reloadResponsiveStuff();
 
 });
 
 
+function reloadResponsiveStuff() {
+  var europeHeight = $("#europeSvgCont").outerHeight();
 
+  $('.europeMap').css('height', europeHeight + "px");
+  $('.southMap').css('height', $("#southSvgCont").outerHeight() + "px");
+  $('.southDegreeShips').css('height', $("#southSvgCont").outerHeight() + "px");
+  $('.atlanticText').css('top', europeHeight/2 + 1000 + "px");
+  $('.triggerAtlanticText').css('top', europeHeight/2 + 1000 + "px");
+
+
+  loadSouthDegrees();
+  //controller.removeScene(europeTextScene);
+
+  europeTextScene = new ScrollMagic.Scene({
+      triggerElement: "#europeMap",
+      duration: europeHeight / 3
+    })
+    .setPin("#europeT")
+    .triggerHook(0.1)
+
+    //.addIndicators({name: "1 (duration: 300)"}) // add indicators (requires plugin)
+    .addTo(controller);
+
+  var europeTextScene = new ScrollMagic.Scene({
+      triggerElement: ".triggerAtlanticText",
+      duration: europeHeight / 3
+    })
+    .setPin("#atlanticT")
+    .triggerHook(0.2)
+
+    //.addIndicators({name: "1 (duration: 300)"}) // add indicators (requires plugin)
+    .addTo(controller);
+
+}
 
 d3.csv("data/data.csv", function(error, aData) {
   if (error) {
@@ -295,7 +319,7 @@ function addExpeditions(csvData) {
 
     //scrollmagic
 
-    
+
 
     //create SHIPS
     d3.select(".shipCollection").append("div").attr("class", "ship").attr("id", "ship" + i);
