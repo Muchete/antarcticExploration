@@ -16,7 +16,6 @@ var startPosSplit = [10, 10];
 
 $(window).on("load", function() {
   reloadResponsiveStuff();
-  addLonelyTraveler();
 
 
 })
@@ -28,6 +27,10 @@ $(window).resize(function() {
 });
 
 function addLonelyTraveler(){
+
+  var northSouthHeight = ($("#europeSvgCont").outerHeight())+($("#southSvgCont").outerHeight()+800);
+
+
   console.log("creating lonely ship");
   d3.select(".southDegreeShips").append("div").attr("class", "southGroupLt");
 
@@ -37,11 +40,11 @@ function addLonelyTraveler(){
 
   new ScrollMagic.Scene({
       triggerElement: "#southDegreeShips",
-      duration: 5000
+      duration: northSouthHeight
     })
     // animate color and top border in relation to scroll position
     .setTween(".lonelyShip", {
-      top: "5000px",
+      top: northSouthHeight+"px",
       ease: CustomEase.create("custom", "M0,0,C0.306,0.176,0.472,0.455,0.496,0.496,0.574,0.63,0.754,0.858,1,1")
     }) // the tween durtion can be omitted and defaults to 1
     .addIndicators({
@@ -56,11 +59,11 @@ function addLonelyTraveler(){
 
   new ScrollMagic.Scene({
       triggerElement: "#southDegreeShips",
-      duration: 5000
+      duration: northSouthHeight
     })
     // animate color and top border in relation to scroll position
     .setTween(".lonelyShipStroke", {
-      height: "5000px",
+      height: northSouthHeight+"px",
       ease: CustomEase.create("custom", "M0,0,C0.306,0.176,0.472,0.455,0.496,0.496,0.574,0.63,0.754,0.858,1,1")
     }) // the tween durtion can be omitted and defaults to 1
     .addIndicators({
@@ -108,6 +111,7 @@ function reloadResponsiveStuff() {
 
     //.addIndicators({name: "1 (duration: 300)"}) // add indicators (requires plugin)
     .addTo(controller);
+
 
 }
 
@@ -1099,52 +1103,7 @@ function addSouthShip(data) {
 //SOUTH DEGREE
 
 function loadSouthDegrees() {
-  // var svg = d3.select(".southDegreeDraw")
-  // margin = {
-  //     top: 0,
-  //     right: 315,
-  //     bottom: 0,
-  //     left: 315
-  //   },
-  //   width = +svg.attr("width") - margin.left - margin.right,
-  //   height = +svg.attr("height") - margin.top - margin.bottom,
-  //   g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-  //
-  // var formatNumber = d3.format("1");
-  //
-  // var x = d3.scaleLinear()
-  //   .domain([1400, 1900])
-  //   .range([0, width]);
-  //
-  // var y = d3.scaleLinear()
-  //   .domain([0, 80])
-  //   .range([0, height]);
-  //
-  // var xAxis = d3.axisTop(x)
-  //   .ticks(4);
-  //
-  // var yAxis = d3.axisRight(y)
-  //   .ticks(7)
-  //   .tickSize(width)
-  //   .tickFormat(function(d) {});
-  //
-  // g.append("g")
-  //   .attr("transform", "translate(0,0)")
-  //   .call(customXAxis);
-  //
-  // g.append("g")
-  //   .call(customYAxis);
-  //
-  // function customXAxis(g) {
-  //   g.call(xAxis);
-  // }
-  //
-  // function customYAxis(g) {
-  //   g.call(yAxis);
-  //   g.select(".domain").remove();
-  //   g.selectAll(".tick:not(:first-of-type) line").attr("class", "southLine");
-  //   g.selectAll(".tick text").attr("x", -25).attr("dy", 3);
-  // }
+
 
   d3.csv("data/data_southDegree.csv", function(error, data) {
 
@@ -1162,6 +1121,7 @@ function loadSouthDegrees() {
     clearSouthDegree();
     console.log(data[0].date);
     addSouthShip(data);
+    addLonelyTraveler();
 
 
 
