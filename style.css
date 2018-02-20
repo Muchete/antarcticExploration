@@ -247,6 +247,7 @@ p {
   margin-left: -2.5px;
   margin-top: -2.5px;
   top: -120px;
+  opacity: 0;
 }
 
 .sdShip {

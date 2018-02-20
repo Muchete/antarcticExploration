@@ -445,6 +445,7 @@ function addExpeditions(csvData) {
           type: 'quadratic',
           values: bezierPath
         },
+        opacity: 1,
         ease: Power3.easeInOut,
         delay: startingYear
       }), TweenMax.to(tempjqpath, pathDuration, {
