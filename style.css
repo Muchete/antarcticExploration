@@ -101,7 +101,8 @@ p {
 
 .shipPath {
   stroke: #e12b2a;
-  stroke-width: 1;
+  /* stroke: grey; */
+  stroke-width: 0.5;
   fill: none;
   position: fixed;
   pointer-events: visibleStroke;
@@ -109,7 +110,7 @@ p {
 }
 
 .pathHovering {
-  stroke-width: 3;
+  stroke-width: 1;
   z-index: 1;
 }
 
@@ -143,7 +144,7 @@ p {
   left: 0;
   right: 0;
   margin: 0 auto;
-  overflow: hidden
+  overflow: hidden;
 }
 
 .southYearsSVG {
@@ -167,6 +168,10 @@ p {
 #timelineSVG {
   height: 10000px;
   width: 200px;
+}
+
+.timeline{
+  color: grey;
 }
 
 .bridgeText {
