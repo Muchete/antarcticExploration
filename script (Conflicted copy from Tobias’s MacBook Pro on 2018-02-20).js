@@ -16,8 +16,6 @@ var startPosSplit = [10, 10];
 
 $(window).on("load", function() {
   reloadResponsiveStuff();
-  addLonelyTraveler();
-
 
 })
 
@@ -80,7 +78,7 @@ function reloadResponsiveStuff() {
   $('.atlanticText').css('top', europeHeight/2 + 1000 + "px");
   $('.triggerAtlanticText').css('top', europeHeight/2 + 1000 + "px");
   $('.bridgeText').css('top', europeHeight + southHeight + 1000 + "px");
-
+  
 
 
 
@@ -1162,7 +1160,7 @@ function loadSouthDegrees() {
     clearSouthDegree();
     console.log(data[0].date);
     addSouthShip(data);
-
+    addLonelyTraveler();
 
 
 
