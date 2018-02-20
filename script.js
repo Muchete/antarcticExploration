@@ -38,6 +38,8 @@ function addLonelyTraveler(){
     .style("top", "0 px")
     .style("left", responsiveX(1820) + "px");
 
+
+
   new ScrollMagic.Scene({
       triggerElement: "#southDegreeShips",
       duration: northSouthHeight
@@ -52,6 +54,20 @@ function addLonelyTraveler(){
     }) // add indicators (requires plugin)
     .addTo(controller);
 
+    new ScrollMagic.Scene({
+        triggerElement: "#southDegreeShips",
+        duration: northSouthHeight
+      })
+      // animate color and top border in relation to scroll position
+      .setTween(".lonelyShip", {
+        opacity: 0,
+        ease: Power4.easeIn,
+      }) // the tween durtion can be omitted and defaults to 1
+      .addIndicators({
+        name: "LONELY SHIP (duration: 4000)"
+      }) // add indicators (requires plugin)
+      .addTo(controller);
+
 
   d3.select(".southGroupLt").append("div").attr("class", "lonelyShipStroke")
     .style("top", "0 px")
@@ -64,12 +80,28 @@ function addLonelyTraveler(){
     // animate color and top border in relation to scroll position
     .setTween(".lonelyShipStroke", {
       height: northSouthHeight+"px",
-      ease: CustomEase.create("custom", "M0,0,C0.306,0.176,0.472,0.455,0.496,0.496,0.574,0.63,0.754,0.858,1,1")
+      ease: CustomEase.create("custom", "M0,0,C0.306,0.176,0.472,0.455,0.496,0.496,0.574,0.63,0.754,0.858,1,1"),
     }) // the tween durtion can be omitted and defaults to 1
     .addIndicators({
       name: "LONELY SHIP  STROKE (duration: 4000)"
     }) // add indicators (requires plugin)
     .addTo(controller);
+
+    new ScrollMagic.Scene({
+        triggerElement: "#southDegreeShips",
+        duration: northSouthHeight
+      })
+      // animate color and top border in relation to scroll position
+      .setTween(".lonelyShipStroke", {
+        opacity: 0,
+        ease: Power4.easeIn,
+      }) // the tween durtion can be omitted and defaults to 1
+      .addIndicators({
+        name: "LONELY SHIP  STROKE (duration: 4000)"
+      }) // add indicators (requires plugin)
+      .addTo(controller);
+
+
 
 }
 
