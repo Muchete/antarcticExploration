@@ -26,9 +26,9 @@ $(window).resize(function() {
 
 });
 
-function addLonelyTraveler(){
+function addLonelyTraveler() {
 
-  var northSouthHeight = ($("#europeSvgCont").outerHeight())+($("#southSvgCont").outerHeight()+800);
+  var northSouthHeight = ($("#europeSvgCont").outerHeight()) + ($("#southSvgCont").outerHeight() + 800);
 
 
   console.log("creating lonely ship");
@@ -46,7 +46,7 @@ function addLonelyTraveler(){
     })
     // animate color and top border in relation to scroll position
     .setTween(".lonelyShip", {
-      top: northSouthHeight+"px",
+      top: northSouthHeight + "px",
       ease: CustomEase.create("custom", "M0,0,C0.306,0.176,0.472,0.455,0.496,0.496,0.574,0.63,0.754,0.858,1,1")
     }) // the tween durtion can be omitted and defaults to 1
     .addIndicators({
@@ -54,19 +54,19 @@ function addLonelyTraveler(){
     }) // add indicators (requires plugin)
     .addTo(controller);
 
-    new ScrollMagic.Scene({
-        triggerElement: "#southDegreeShips",
-        duration: northSouthHeight
-      })
-      // animate color and top border in relation to scroll position
-      .setTween(".lonelyShip", {
-        opacity: 0,
-        ease: Power4.easeIn,
-      }) // the tween durtion can be omitted and defaults to 1
-      .addIndicators({
-        name: "LONELY SHIP (duration: 4000)"
-      }) // add indicators (requires plugin)
-      .addTo(controller);
+  new ScrollMagic.Scene({
+      triggerElement: "#southDegreeShips",
+      duration: northSouthHeight
+    })
+    // animate color and top border in relation to scroll position
+    .setTween(".lonelyShip", {
+      opacity: 0,
+      ease: Power4.easeIn,
+    }) // the tween durtion can be omitted and defaults to 1
+    .addIndicators({
+      name: "LONELY SHIP (duration: 4000)"
+    }) // add indicators (requires plugin)
+    .addTo(controller);
 
 
   d3.select(".southGroupLt").append("div").attr("class", "lonelyShipStroke")
@@ -79,7 +79,7 @@ function addLonelyTraveler(){
     })
     // animate color and top border in relation to scroll position
     .setTween(".lonelyShipStroke", {
-      height: northSouthHeight+"px",
+      height: northSouthHeight + "px",
       ease: CustomEase.create("custom", "M0,0,C0.306,0.176,0.472,0.455,0.496,0.496,0.574,0.63,0.754,0.858,1,1"),
     }) // the tween durtion can be omitted and defaults to 1
     .addIndicators({
@@ -87,19 +87,19 @@ function addLonelyTraveler(){
     }) // add indicators (requires plugin)
     .addTo(controller);
 
-    new ScrollMagic.Scene({
-        triggerElement: "#southDegreeShips",
-        duration: northSouthHeight
-      })
-      // animate color and top border in relation to scroll position
-      .setTween(".lonelyShipStroke", {
-        opacity: 0,
-        ease: Power4.easeIn,
-      }) // the tween durtion can be omitted and defaults to 1
-      .addIndicators({
-        name: "LONELY SHIP  STROKE (duration: 4000)"
-      }) // add indicators (requires plugin)
-      .addTo(controller);
+  new ScrollMagic.Scene({
+      triggerElement: "#southDegreeShips",
+      duration: northSouthHeight
+    })
+    // animate color and top border in relation to scroll position
+    .setTween(".lonelyShipStroke", {
+      opacity: 0,
+      ease: Power4.easeIn,
+    }) // the tween durtion can be omitted and defaults to 1
+    .addIndicators({
+      name: "LONELY SHIP  STROKE (duration: 4000)"
+    }) // add indicators (requires plugin)
+    .addTo(controller);
 
 
 
@@ -112,8 +112,8 @@ function reloadResponsiveStuff() {
   $('.europeMap').css('height', europeHeight + "px");
   $('.southMap').css('height', southHeight + "px");
   $('.southDegreeShips').css('height', southHeight + "px");
-  $('.atlanticText').css('top', europeHeight/2 + 1000 + "px");
-  $('.triggerAtlanticText').css('top', europeHeight/2 + 1000 + "px");
+  $('.atlanticText').css('top', europeHeight / 2 + 1000 + "px");
+  $('.triggerAtlanticText').css('top', europeHeight / 2 + 1000 + "px");
   $('.bridgeText').css('top', europeHeight + southHeight + 1000 + "px");
 
 
@@ -209,16 +209,16 @@ d3.csv("data/data.csv", function(error, aData) {
 
   });
 
-  d3.csv("data/dataTooltipMap.csv", function(error, dataTooltipMap) {
 
-    if (error) throw error;
-
-    dataTooltipMap.forEach(function(d) {
-      return d;
-    });
+  d3.text("data/dataTooltipMapExtended.csv", function(error, raw) {
+    var dsv = d3.dsvFormat(';')
+    var toolTipData = dsv.parse(raw)
+    console.log(toolTipData);
 
 
-    tooltipDataMap = dataTooltipMap;
+
+
+
 
 
 
@@ -238,7 +238,23 @@ d3.csv("data/data.csv", function(error, aData) {
         //get right line from second data file (tootltip)
         var hoverId = String(($(this).parent().parent().attr('id')));
         var hoverNr = hoverId.replace("pathGroup_", "");
-        console.log(dataTooltipMap[hoverNr].schiff);
+        hoverNr = hoverNr;
+
+        d3.select(".tooltipText")
+          .html(toolTipData[hoverNr].DURATION + "</br>" + "Captain: "+ toolTipData[hoverNr].CAPTAIN + "</br>" + toolTipData[hoverNr].INFORMATION)
+          .style("opacity", 1)
+          .style("left", (event.pageX) + "px")
+          .style("top", (event.pageY + 45) + "px")
+          .style("visibility", "visible")
+          .style("opacity", "1");
+
+        d3.select(".tooltipHeader")
+          .html(toolTipData[hoverNr].TITEL + " (" + toolTipData[hoverNr].COUNTRY + ")" )
+          .style("opacity", 1)
+          .style("left", (event.pageX) + "px")
+          .style("top", (event.pageY) + "px")
+          .style("visibility", "visible")
+          .style("opacity", "1");
 
 
       },
@@ -247,6 +263,11 @@ d3.csv("data/data.csv", function(error, aData) {
         $(this).siblings().removeClass("pathHovering");
         $(this).parent().parent().siblings().removeClass("soften");
 
+        d3.select(".tooltipText")
+          .style("opacity", "0");
+
+        d3.select(".tooltipHeader")
+          .style("opacity", "0");
 
       }
     );
@@ -277,8 +298,8 @@ d3.csv("data/data.csv", function(error, aData) {
 
 
     new ScrollMagic.Scene({
-        triggerElement: ".antarctica",
-        duration: 30000
+        triggerElement: ".antarcticaTrigger",
+        duration: 10000
       })
       .setPin(".antarcticaMap", {
         pushFollowers: false
@@ -287,8 +308,8 @@ d3.csv("data/data.csv", function(error, aData) {
       .triggerHook(0);
 
     new ScrollMagic.Scene({
-        triggerElement: ".antarctica",
-        duration: 30000
+        triggerElement: ".antarcticaTrigger",
+        duration: 10000
       })
       .setPin(".shipCollection", {
         pushFollowers: false
@@ -297,8 +318,8 @@ d3.csv("data/data.csv", function(error, aData) {
       .triggerHook(0);
 
     new ScrollMagic.Scene({
-        triggerElement: ".antarctica",
-        duration: 30000
+        triggerElement: ".antarcticaTrigger",
+        duration: 10000
       })
       .setPin(".pathCollection", {
         pushFollowers: false
@@ -313,7 +334,7 @@ d3.csv("data/data.csv", function(error, aData) {
     //   .setPin(".southDegreeTimeline")
     //   .addTo(controller)
     //   .triggerHook(0.06);
-  });
+  })
 });
 
 
@@ -1132,13 +1153,22 @@ function addSouthShip(data) {
 
 }
 
+function addTooltipsSouth() {
+  var tooltipHeader = d3.select("body").append("div")
+    .attr('class', 'tooltipHeader');
 
+  var tooltipText = d3.select("body").append("div")
+    .attr('class', 'tooltipText');
+
+}
 //SOUTH DEGREE
 
 function loadSouthDegrees() {
 
-
-  d3.csv("data/data_southDegree.csv", function(error, data) {
+    d3.text("data/data_southDegreeExtended.csv", function(error, raw) {
+      var dsv = d3.dsvFormat(';')
+      var data = dsv.parse(raw)
+      console.log(data);
 
     if (error) throw error;
 
@@ -1148,14 +1178,18 @@ function loadSouthDegrees() {
       return d;
     });
 
-    console.log(data.length);
 
+
+
+
+
+    //console.log(data[0]);
     //html version first tests://////////////////////////////////
     clearSouthDegree();
-    console.log(data[0].date);
+    //console.log(data);
     addSouthShip(data);
     addLonelyTraveler();
-
+    addTooltipsSouth();
 
 
 
@@ -1168,9 +1202,25 @@ function loadSouthDegrees() {
         //$(this).siblings().addClass("pathHovering");
         //$(this).parent().parent().siblings().addClass("soften");
         //get right line from second data file (tootltip)
-        var hoverId = String(($(this).parent().parent().attr('id')));
-        var hoverNr = hoverId.replace("sdGroup", "");
+        var hoverId = String(($(this).attr('id')));
+        var hoverNr = hoverId.replace("southGroup", "");
         console.log(hoverNr);
+
+        d3.select(".tooltipText")
+          .html("Captain: "+ data[hoverNr].captain + "</br>" + data[hoverNr].information)
+          .style("opacity", 1)
+          .style("left", (event.pageX) + "px")
+          .style("top", (event.pageY + 45) + "px")
+          .style("visibility", "visible")
+          .style("opacity", "1");
+
+        d3.select(".tooltipHeader")
+          .html(data[hoverNr].country + " - " + data[hoverNr].south + "˚- " + data[hoverNr].date)
+          .style("opacity", 1)
+          .style("left", (event.pageX) + "px")
+          .style("top", (event.pageY) + "px")
+          .style("visibility", "visible")
+          .style("opacity", "1");
 
 
       },
@@ -1181,6 +1231,11 @@ function loadSouthDegrees() {
         $(this).siblings().removeClass("pathHovering");
         $(this).parent().parent().siblings().removeClass("soften");
 
+        d3.select(".tooltipText")
+          .style("opacity", "0");
+
+        d3.select(".tooltipHeader")
+          .style("opacity", "0");
 
       }
     );
