@@ -110,6 +110,18 @@ p {
   transition: stroke 0.1s, stroke-width 0.1s, opacity 0.1s;
 }
 
+.shipPathPseudo {
+  stroke: transparent;
+  /* stroke: red; */
+  stroke-width: 20;
+  /* opacity: 0.5; */
+  fill: none;
+  position: fixed;
+  pointer-events: visibleStroke;
+  z-index: 100;
+  /* transition: stroke 0.1s, stroke-width 0.1s, opacity 0.1s; */
+}
+
 
 .pathHovering {
   stroke-width: 1.2;

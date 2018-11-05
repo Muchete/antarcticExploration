@@ -230,13 +230,16 @@ d3.csv("data/data.csv", function(error, aData) {
     //   console.log("yaaaaaaa");
     // });
 
-    $('.shipPath').hover(
+    $('.shipPathPseudo').hover(
       function() {
-        $(this).addClass("pathHovering");
-        $(this).siblings().addClass("pathHovering");
-        $(this).parent().parent().siblings().addClass("soften");
+        id = $(this).attr('id');
+        $that = $(this).siblings("#" + id); //get real element
+
+        $that.addClass("pathHovering");
+        $that.siblings(".shipPath").addClass("pathHovering");
+        $that.parent().parent().siblings(".shipPath").addClass("soften");
         //get right line from second data file (tootltip)
-        var hoverId = String(($(this).parent().parent().attr('id')));
+        var hoverId = String(($that.parent().parent().attr('id')));
         var hoverNr = hoverId.replace("pathGroup_", "");
         hoverNr = hoverNr;
 
@@ -259,9 +262,12 @@ d3.csv("data/data.csv", function(error, aData) {
 
       },
       function() {
-        $(this).removeClass("pathHovering");
-        $(this).siblings().removeClass("pathHovering");
-        $(this).parent().parent().siblings().removeClass("soften");
+        id = $(this).attr('id');
+        $that = $(this).siblings("#" + id); //get real element
+
+        $that.removeClass("pathHovering");
+        $that.siblings().removeClass("pathHovering");
+        $that.parent().parent().siblings().removeClass("soften");
 
         d3.select(".tooltipText")
           .style("opacity", "0");
@@ -451,6 +457,7 @@ function addExpeditions(csvData) {
 
       // var tempDiv = d3.select("#pathCollectionSVG");
       var tempPath = createdPathSvgGroup.append("path").attr("d", "M" + bezierPath[0].x + "," + bezierPath[0].y + " Q" + bezierPath[1].x + "," + bezierPath[1].y + " " + bezierPath[2].x + "," + bezierPath[2].y + "").attr("class", "shipPath").attr("id", "path" + i + "01");
+      // var tempPath = createdPathSvgGroup.append("path").attr("d", "M" + bezierPath[0].x + "," + bezierPath[0].y + " Q" + bezierPath[1].x + "," + bezierPath[1].y + " " + bezierPath[2].x + "," + bezierPath[2].y + "").attr("class", "shipPathPseudo").attr("id", "path" + i + "01");
       var tempjqpath = $("path#" + "path" + i + "01");
       pathPrepare(tempjqpath);
 
@@ -1039,6 +1046,7 @@ function getMiddlePointsWalking(x1, y1, x2, y2) {
 
 function addPaths(bezierPath, i, pathGroupSvg) {
   pathGroupSvg.append("path").attr("d", "M" + bezierPath[0].x + "," + bezierPath[0].y + " Q" + bezierPath[1].x + "," + bezierPath[1].y + " " + bezierPath[2].x + "," + bezierPath[2].y + "").attr("class", "shipPath").attr("id", "path" + i + "_" + pathId);
+  pathGroupSvg.append("path").attr("d", "M" + bezierPath[0].x + "," + bezierPath[0].y + " Q" + bezierPath[1].x + "," + bezierPath[1].y + " " + bezierPath[2].x + "," + bezierPath[2].y + "").attr("class", "shipPathPseudo").attr("id", "path" + i + "_" + pathId);
   var tempjqpath = $("path#" + "path" + i + "_" + pathId);
   pathPrepare(tempjqpath);
   pathId++;
